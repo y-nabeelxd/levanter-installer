@@ -66,7 +66,8 @@ while true; do
                 npm install -g node-gyp@latest
                 sudo apt install binutils -y
                 yarn install
-                echo "SESSION_ID = $session" > config.env
+                echo "SESSION_ID = $session
+                VPS = true" > config.env
                 clear
                 echo -e "SUCCESSFULLY DEPLOYED YOUR BOT"
                 sleep 2
@@ -88,7 +89,8 @@ while true; do
                 curl -o nodesource_setup.bat https://deb.nodesource.com/setup_20.x
                 git clone https://github.com/lyfe00011/levanter .
                 npm install
-                echo "SESSION_ID = $session" > config.env
+                echo "SESSION_ID = $session
+                VPS = true" > config.env
                 clear
                 echo -e "SUCCESSFULLY DEPLOYED YOUR BOT"
                 sleep 2
