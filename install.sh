@@ -1,6 +1,5 @@
 #!/bin/bash
 
-
 check_os() {
     if [[ "$1" == "Ubuntu" ]]; then
         clear
@@ -24,13 +23,12 @@ check_os() {
             echo "Sorry, Your system is not Windows"
             return 1
         else
-            echo "Found Windows $(wmic os get Caption | grep -oP 'Windows \S+')!"
+            echo "Found Windows $(systeminfo | findstr /B /C:'OS Name' | cut -d':' -f2 | xargs)!"
             sleep 3
             return 0
         fi
     fi
 }
-
 
 while true; do
     clear
@@ -83,12 +81,15 @@ while true; do
                 clear
                 read -p "What name do you want to put on Bot: " name
                 read -p "Session ID: " session
-                echo "Installing dependencies for Windows..."
-                mkdir "$HOME/$name"
-                cd "$HOME/$name"
-                curl -o nodesource_setup.bat https://deb.nodesource.com/setup_20.x
+                echo -e "\nInstalling dependencies for Windows...\n"
+                mkdir "$HOME\\$name"
+                cd "$HOME\\$name"
+                powershell -Command "& {Invoke-WebRequest -Uri https://deb.nodesource.com/setup_20.x -OutFile nodesource_setup.ps1}"
+                powershell -Command "& {Set-ExecutionPolicy RemoteSigned -Scope CurrentUser; .\\nodesource_setup.ps1}"
+                powershell -Command "& {Install-Package -Name nodejs -Force -Scope CurrentUser}"
+                powershell -Command "& {npm install -g yarn pm2}"
                 git clone https://github.com/lyfe00011/levanter .
-                npm install
+                powershell -Command "& {npm install}"
                 echo "SESSION_ID = $session
                 VPS = true" > config.env
                 clear
