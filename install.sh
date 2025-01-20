@@ -59,8 +59,10 @@ while true; do
                 yarn global add pm2
                 git clone https://github.com/lyfe00011/levanter "$name"
                 cd "$name"
+                sudo apt install make
                 sudo apt install python3-setuptools
                 npm install -g node-gyp
+                npm install -g node-gyp@latest
                 sudo apt install binutils -y
                 yarn install
                 echo "SESSION_ID = $session" > config.env
