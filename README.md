@@ -11,6 +11,7 @@ Necessary Installation:
 ```
 apt update && apt upgrade -y && apt install bash -y && apt install curl -y
 ```
+
 To run the installer, simply use the following command:
 
 ```
@@ -21,6 +22,29 @@ bash <(curl -sSL https://gist.github.com/y-nabeelxd/e6b16b1300d43b971b61c3d7e427
 
 - Ubuntu or Termux (with or without Ubuntu via `proot`)
 - Internet connection
+
+## Running the Bot Again?
+
+If you're having trouble running the bot again, follow these steps:
+
+**Login to Ubuntu from Termux:**
+
+```
+proot-distro login ubuntu
+```
+
+**Navigate to your bot folder:**
+
+```
+ls                # Check if your bot folder is listed
+cd botfoldername  # Replace with your actual folder name
+```
+
+**Run the bot:**
+
+```
+npm start
+```
 
 ## Credits
 
