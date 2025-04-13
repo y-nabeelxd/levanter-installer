@@ -20,7 +20,7 @@ bash <(curl -sSL https://gist.github.com/y-nabeelxd/e6b16b1300d43b971b61c3d7e427
 
 ## Requirements
 
-- Ubuntu or Termux (with or without Ubuntu via `proot`)
+- Ubuntu or [Termux](https://f-droid.org/repo/com.termux_1021.apk) (with or without Ubuntu via `proot`)
 - Internet connection
 
 ## Running the Bot Again?
