@@ -54,3 +54,10 @@ npm start
 ---
 
 **Note:** Use this script responsibly. All credit for the original bot goes to its respective creator.
+
+<p align="center">
+  <b>Contact having any issues</b>
+  <a href="https://wa.me/917736799273">
+    <img src="https://img.shields.io/badge/WhatsApp-Contact%20Now-brightgreen?style=for-the-badge&logo=whatsapp" alt="WhatsApp">
+  </a>
+</p>
