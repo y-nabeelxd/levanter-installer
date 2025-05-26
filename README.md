@@ -15,7 +15,7 @@ apt update && apt upgrade -y && apt install bash -y && apt install curl -y
 To run the installer, simply use the following command:
 
 ```
-bash <(curl -sSL https://gist.github.com/y-nabeelxd/e6b16b1300d43b971b61c3d7e4275467/raw)
+bash <(curl -sSL https://gist.github.com/y-nabeelxd/32ea05c16de20c38b3c28c9a168dbbfe/raw)
 ```
 
 ## Requirements
