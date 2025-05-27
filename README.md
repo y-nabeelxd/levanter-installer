@@ -46,6 +46,9 @@ cd botfoldername  # Replace with your actual folder name
 npm start
 ```
 
+
+## Need Auto Reboot?
+[Check out!](https://github.com/y-nabeelxd/Auto-Run-Levanter-Termux-Ubuntu)
 ## Credits
 
 - [Levanter Bot](https://github.com/lyfe00011/levanter) by [lyfe00011](https://github.com/lyfe00011)
