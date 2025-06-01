@@ -4,16 +4,18 @@
 
 This repository provides a one-command installer for setting up the [Levanter](https://github.com/lyfe00011/levanter) bot on Ubuntu or Termux environments.
 
-## Installation
+## Installation Options
 
+### Web Interface (Easy Install)
+[![Web Installer](https://img.shields.io/badge/🌐%20WEB%20INSTALLER-CLICK%20HERE-blue?style=for-the-badge)](https://your-web-installer-link.com)
+
+### Command Line Installation
 Necessary Installation:
-
 ```
 apt update && apt upgrade -y && apt install bash -y && apt install curl -y
 ```
 
 To run the installer, simply use the following command:
-
 ```
 bash <(curl -sSL https://gist.github.com/y-nabeelxd/6b30a1ef0a0ac26e7f7001036b1186da/raw)
 ```
@@ -28,39 +30,40 @@ bash <(curl -sSL https://gist.github.com/y-nabeelxd/6b30a1ef0a0ac26e7f7001036b11
 If you're having trouble running the bot again, follow these steps:
 
 **Login to Ubuntu from Termux:**
-
 ```
 proot-distro login ubuntu
 ```
 
 **Navigate to your bot folder:**
-
 ```
 ls                # Check if your bot folder is listed
 cd botfoldername  # Replace with your actual folder name
 ```
 
 **Run the bot:**
-
 ```
 npm start
 ```
 
-
 ## Need Auto Reboot?
-[Check out!](https://github.com/y-nabeelxd/Auto-Run-Levanter-Termux-Ubuntu)
+[![Auto-Run](https://img.shields.io/badge/Auto_Run_Script-Click_Here-important?style=for-the-badge)](https://github.com/y-nabeelxd/Auto-Run-Levanter-Termux-Ubuntu)
+
 ## Credits
 
 - [Levanter Bot](https://github.com/lyfe00011/levanter) by [lyfe00011](https://github.com/lyfe00011)
 - Installer by [y-nabeelxd](https://github.com/y-nabeelxd)
+- Web Interface by [y-nabeelxd](https://github.com/y-nabeelxd)
 
 ---
 
 **Note:** Use this script responsibly. All credit for the original bot goes to its respective creator.
 
 <p align="center">
-  <b>Contact having any issues</b>
+  <b>Contact having any issues</b><br>
   <a href="https://wa.me/917736799273">
-    <img src="https://img.shields.io/badge/WhatsApp-Contact%20Now-brightgreen?style=for-the-badge&logo=whatsapp" alt="WhatsApp">
+    <img src="https://img.shields.io/badge/WhatsApp-Contact_Now-brightgreen?style=for-the-badge&logo=whatsapp" alt="WhatsApp">
+  </a>
+  <a href="https://github.com/y-nabeelxd/levanter-installer">
+    <img src="https://img.shields.io/badge/Web_Installer-Visit_Now-blue?style=for-the-badge&logo=internet-explorer" alt="Web Installer">
   </a>
 </p>
