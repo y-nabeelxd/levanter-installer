@@ -7,7 +7,7 @@ This repository provides a one-command installer for setting up the [Levanter](h
 ## Installation Options
 
 ### Web Interface (Easy Install)
-[![Web Installer](https://img.shields.io/badge/🌐%20WEB%20INSTALLER-CLICK%20HERE-blue?style=for-the-badge)](https://your-web-installer-link.com)
+[![Web Installer](https://img.shields.io/badge/🌐%20WEB%20INSTALLER-CLICK%20HERE-blue?style=for-the-badge)](https://y-nabeelxd.github.io/levanter-installer)
 
 ### Command Line Installation
 Necessary Installation:
