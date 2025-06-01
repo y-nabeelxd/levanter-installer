@@ -63,7 +63,4 @@ npm start
   <a href="https://wa.me/917736799273">
     <img src="https://img.shields.io/badge/WhatsApp-Contact_Now-brightgreen?style=for-the-badge&logo=whatsapp" alt="WhatsApp">
   </a>
-  <a href="https://github.com/y-nabeelxd/levanter-installer">
-    <img src="https://img.shields.io/badge/Web_Installer-Visit_Now-blue?style=for-the-badge&logo=internet-explorer" alt="Web Installer">
-  </a>
 </p>
