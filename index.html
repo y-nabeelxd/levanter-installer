@@ -132,12 +132,12 @@
         
         <div id="commandDialog" class="dialog">
             <h2 id="selectedLanguage"></h2>
-            <p>Copy and run this command in Termux:</p>
+            <p id="instructionText"></p>
             <div class="command-container">
                 <code class="command" id="commandText"></code>
-                <button class="copy-btn" id="copyBtn">Copy</button>
+                <button class="copy-btn" id="copyBtn"></button>
             </div>
-            <p class="copy-message" id="copyMessage">Copy and paste this command to Termux. After installation you will see `root@localhost` in your screen. Then paste this command again.</p>
+            <p class="copy-message" id="copyMessage"></p>
         </div>
     </div>
 
@@ -149,20 +149,73 @@
             const commandText = document.getElementById('commandText');
             const copyBtn = document.getElementById('copyBtn');
             const copyMessage = document.getElementById('copyMessage');
+            const instructionText = document.getElementById('instructionText');
             const container = document.querySelector('.container');
             const title = document.querySelector('h1');
             const languageGrid = document.querySelector('.language-grid');
+            
+            const translations = {
+                english: {
+                    instruction: "Copy and run this command in Termux:",
+                    copyBtn: "Copy",
+                    message: "Copy and paste this command to Termux. After installation you will see `root@localhost` in your screen. Then paste this command again."
+                },
+                bengali: {
+                    instruction: "টার্মাক্সে এই কমান্ডটি কপি এবং রান করুন:",
+                    copyBtn: "কপি করুন",
+                    message: "এই কমান্ডটি টার্মাক্সে কপি এবং পেস্ট করুন। ইনস্টলেশন শেষে আপনি আপনার স্ক্রিনে `root@localhost` দেখতে পাবেন। তারপর আবার এই কমান্ডটি পেস্ট করুন।"
+                },
+                spanish: {
+                    instruction: "Copia y ejecuta este comando en Termux:",
+                    copyBtn: "Copiar",
+                    message: "Copia y pega este comando en Termux. Después de la instalación verás `root@localhost` en tu pantalla. Luego pega este comando nuevamente."
+                },
+                hindi: {
+                    instruction: "टर्मक्स में इस कमांड को कॉपी और रन करें:",
+                    copyBtn: "कॉपी करें",
+                    message: "इस कमांड को टर्मक्स में कॉपी और पेस्ट करें। इंस्टालेशन के बाद आप अपनी स्क्रीन पर `root@localhost` देखेंगे। फिर इस कमांड को फिर से पेस्ट करें।"
+                },
+                indonesian: {
+                    instruction: "Salin dan jalankan perintah ini di Termux:",
+                    copyBtn: "Salin",
+                    message: "Salin dan tempel perintah ini ke Termux. Setelah instalasi Anda akan melihat `root@localhost` di layar Anda. Kemudian tempel perintah ini lagi."
+                },
+                urdu: {
+                    instruction: "ٹریمکس میں یہ کمانڈ کاپی اور رن کریں:",
+                    copyBtn: "کاپی کریں",
+                    message: "اس کمانڈ کو ٹریمکس میں کاپی اور پیسٹ کریں۔ انسٹالیشن کے بعد آپ اپنی اسکرین پر `root@localhost` دیکھیں گے۔ پھر یہ کمانڈ دوبارہ پیسٹ کریں۔"
+                },
+                turkish: {
+                    instruction: "Termux'ta bu komutu kopyalayın ve çalıştırın:",
+                    copyBtn: "Kopyala",
+                    message: "Bu komutu Termux'a kopyalayıp yapıştırın. Kurulumdan sonra ekranda `root@localhost` göreceksiniz. Ardından bu komutu tekrar yapıştırın."
+                },
+                french: {
+                    instruction: "Copiez et exécutez cette commande dans Termux :",
+                    copyBtn: "Copier",
+                    message: "Copiez et collez cette commande dans Termux. Après l'installation, vous verrez `root@localhost` à l'écran. Collez ensuite cette commande à nouveau."
+                },
+                russian: {
+                    instruction: "Скопируйте и выполните эту команду в Termux:",
+                    copyBtn: "Копировать",
+                    message: "Скопируйте и вставьте эту команду в Termux. После установки вы увидите `root@localhost` на экране. Затем снова вставьте эту команду."
+                }
+            };
             
             languageBtns.forEach(btn => {
                 btn.addEventListener('click', function() {
                     const lang = this.getAttribute('data-lang');
                     const command = this.getAttribute('data-command');
+                    const langName = this.textContent;
                     
                     title.style.display = 'none';
                     languageGrid.style.display = 'none';
                     
-                    selectedLanguage.textContent = this.textContent;
+                    selectedLanguage.textContent = langName;
+                    instructionText.textContent = translations[lang].instruction;
                     commandText.textContent = command;
+                    copyBtn.textContent = translations[lang].copyBtn;
+                    copyMessage.textContent = translations[lang].message;
                     commandDialog.style.display = 'block';
                 });
             });
@@ -173,7 +226,6 @@
                 navigator.clipboard.writeText(command).then(() => {
                     copyMessage.style.display = 'block';
                     
-                    // Hide message after 5 seconds
                     setTimeout(() => {
                         copyMessage.style.display = 'none';
                     }, 5000);
