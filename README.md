@@ -4,12 +4,13 @@
 
 This repository provides a one-command installer for setting up the [Levanter](https://github.com/lyfe00011/levanter) bot on Ubuntu or Termux environments.
 
+
+[![Tutorial](https://img.shields.io/badge/Watch%20Tutorial-CLICK%20HERE-red?style=for-the-badge)](https://youtu.be/AllGTAG0CSY?si=754gHjepTe1ECBcO)
+
 ## Installation Options
 
 ### Web Interface (Easy Install)
 [![Web Installer](https://img.shields.io/badge/🌐%20WEB%20INSTALLER-CLICK%20HERE-blue?style=for-the-badge)](https://y-nabeelxd.github.io/levanter-installer)
-
-[![Tutorial](https://img.shields.io/badge/Watch%20Tutorial-CLICK%20HERE-red?style=for-the-badge)](https://youtu.be/AllGTAG0CSY?si=754gHjepTe1ECBcO)
 
 ### Command Line Installation
 Necessary Installation:
