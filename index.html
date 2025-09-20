@@ -4,142 +4,379 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Termux Language Installer</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #2d2d30;
-            color: #e0e0e0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
+        :root {
+            --bg-primary: #1e1e2e;
+            --bg-secondary: #252526;
+            --bg-tertiary: #2d2d3d;
+            --accent-primary: #007acc;
+            --accent-hover: #0062a3;
+            --text-primary: #f0f0f0;
+            --text-secondary: #e0e0e0;
+            --text-code: #ce9178;
+            --success: #4ec9b0;
+            --card-radius: 12px;
+            --transition-speed: 0.3s;
+        }
+
+        * {
             margin: 0;
-            padding: 20px;
+            padding: 0;
             box-sizing: border-box;
         }
 
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(0, 122, 204, 0.05) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(78, 201, 176, 0.05) 0%, transparent 20%);
+        }
+
         .container {
-            max-width: 600px;
+            max-width: 800px;
             width: 100%;
             text-align: center;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        .header {
+            margin-bottom: 30px;
+            position: relative;
         }
 
         h1 {
-            margin-bottom: 30px;
-            color: #f0f0f0;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            background: linear-gradient(90deg, #007acc, #4ec9b0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            position: relative;
+            display: inline-block;
+        }
+
+        h1::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, #007acc, #4ec9b0);
+            border-radius: 3px;
+        }
+
+        .subtitle {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            margin-top: 20px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         .language-grid {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 15px;
-            margin-bottom: 20px;
+            margin-bottom: 30px;
         }
 
         .language-btn {
-            background-color: #3e3e42;
-            color: #ffffff;
+            background: var(--bg-secondary);
+            color: var(--text-primary);
             border: none;
-            padding: 15px;
-            border-radius: 5px;
+            padding: 18px 15px;
+            border-radius: var(--card-radius);
             cursor: pointer;
             font-size: 16px;
-            transition: all 0.3s ease;
+            transition: all var(--transition-speed) ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .language-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(0, 122, 204, 0.1), rgba(78, 201, 176, 0.1));
+            opacity: 0;
+            transition: opacity var(--transition-speed);
         }
 
         .language-btn:hover {
-            background-color: #4a4a4f;
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .language-btn:hover::before {
+            opacity: 1;
+        }
+
+        .language-btn:active {
             transform: translateY(-2px);
         }
 
+        .flag-icon {
+            font-size: 24px;
+            margin-bottom: 8px;
+        }
+
         .dialog {
-            display: none;
-            background-color: #3e3e42;
+            background: var(--bg-secondary);
             padding: 25px;
-            border-radius: 8px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            border-radius: var(--card-radius);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
             margin-top: 20px;
-            animation: fadeIn 0.3s ease;
+            animation: slideUp 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .dialog::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background: linear-gradient(to bottom, #007acc, #4ec9b0);
         }
 
         .command-container {
             display: flex;
             align-items: center;
-            background-color: #252526;
-            padding: 12px;
-            border-radius: 5px;
+            background: var(--bg-primary);
+            padding: 15px;
+            border-radius: 8px;
             margin: 20px 0;
             overflow-x: auto;
+            position: relative;
         }
 
         .command {
-            font-family: 'Courier New', monospace;
-            color: #ce9178;
+            font-family: 'Fira Code', 'Courier New', monospace;
+            color: var(--text-code);
             flex-grow: 1;
             text-align: left;
             white-space: nowrap;
+            font-size: 14px;
+            padding-right: 10px;
         }
 
         .copy-btn {
-            background-color: #007acc;
+            background: var(--accent-primary);
             color: white;
             border: none;
-            padding: 8px 15px;
-            border-radius: 4px;
+            padding: 10px 16px;
+            border-radius: 6px;
             cursor: pointer;
-            margin-left: 10px;
-            transition: background-color 0.2s;
+            transition: background-color var(--transition-speed);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 500;
+            flex-shrink: 0;
+        }
+
+        .copy-btn i {
+            margin-right: 6px;
         }
 
         .copy-btn:hover {
-            background-color: #0062a3;
+            background: var(--accent-hover);
         }
 
         .copy-message {
-            color: #4ec9b0;
+            color: var(--success);
             font-size: 14px;
             margin-top: 10px;
             display: none;
+            animation: fadeIn 0.3s;
+        }
+
+        .back-btn {
+            background: transparent;
+            color: var(--text-secondary);
+            border: 1px solid var(--bg-tertiary);
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all var(--transition-speed);
+            margin-top: 15px;
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .back-btn i {
+            margin-right: 6px;
+        }
+
+        .back-btn:hover {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-primary);
+        }
+
+        .fixed-copy-btn {
+            display: none;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--accent-primary);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0, 122, 204, 0.3);
+            z-index: 100;
+            transition: all var(--transition-speed);
+            font-weight: 500;
+            align-items: center;
+            animation: bounceIn 0.5s;
+        }
+
+        .fixed-copy-btn i {
+            margin-right: 8px;
+        }
+
+        .fixed-copy-btn:hover {
+            background: var(--accent-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 14px rgba(0, 122, 204, 0.4);
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        @media (max-width: 500px) {
+        @keyframes bounceIn {
+            0% { opacity: 0; transform: scale(0.5); }
+            50% { opacity: 1; transform: scale(1.1); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .language-grid {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            }
+            
+            .dialog {
+                padding: 20px 15px;
+            }
+            
+            .command {
+                font-size: 12px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.8rem;
+            }
+            
             .language-grid {
                 grid-template-columns: 1fr;
+            }
+            
+            .language-btn {
+                padding: 15px;
+            }
+            
+            .fixed-copy-btn {
+                bottom: 15px;
+                right: 15px;
+                padding: 10px 16px;
+                font-size: 14px;
             }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>CHOOSE YOUR LANGUAGE</h1>
-        
-        <div class="language-grid">
-            <button class="language-btn" data-lang="english" data-command="bash <(curl -sSL https://gist.github.com/y-nabeelxd/32ea05c16de20c38b3c28c9a168dbbfe/raw)">English</button>
-            <button class="language-btn" data-lang="bengali" data-command="bash <(curl -sSL https://gist.github.com/y-nabeelxd/9fe4c42eac0cbd82e0df159b2b20d241/raw)">Bengali (বাংলা)</button>
-            <button class="language-btn" data-lang="spanish" data-command="bash <(curl -sSL https://gist.github.com/y-nabeelxd/686399b34c2eb74b34df2bbf7e3ec779/raw)">Spanish (Español)</button>
-            <button class="language-btn" data-lang="hindi" data-command="bash <(curl -sSL https://gist.github.com/y-nabeelxd/e452f7c68c996140999490144affd247/raw)">Hindi (हिन्दी)</button>
-            <button class="language-btn" data-lang="indonesian" data-command="bash <(curl -sSL https://gist.github.com/y-nabeelxd/fe3844a930200859a88006bb048b5460/raw)">Indonesian (Bahasa Indonesia)</button>
-            <button class="language-btn" data-lang="urdu" data-command="bash <(curl -sSL https://gist.github.com/y-nabeelxd/238edc143d9890995c50bc4bb4ed39a5/raw)">Urdu (اردو)</button>
-            <button class="language-btn" data-lang="turkish" data-command="bash <(curl -sSL https://gist.github.com/y-nabeelxd/84f0041c4f003c837b0f48581e82c0fe/raw)">Turkish (Türkçe)</button>
-            <button class="language-btn" data-lang="french" data-command="bash <(curl -sSL https://gist.github.com/y-nabeelxd/9265c90ab7a800bf8d0fccfbc7e360f7/raw)">French (Français)</button>
-            <button class="language-btn" data-lang="russian" data-command="bash <(curl -sSL https://gist.github.com/y-nabeelxd/d7e2e38e248859214a3c2d4ad7afb104/raw)">Russian (Русский)</button>
+        <div class="header">
+            <h1>CHOOSE YOUR LANGUAGE</h1>
+            <p class="subtitle">Select your preferred language to get the installation command for Termux</p>
         </div>
         
-        <div id="commandDialog" class="dialog">
+        <div class="language-grid">
+            <button class="language-btn" data-lang="english" data-command="bash <(curl -sSL https://gist.github.com/y-nabeelxd/32ea05c16de20c38b3c28c9a168dbbfe/raw)">
+                <div class="flag-icon">🇺🇸</div>
+                English
+            </button>
+            <button class="language-btn" data-lang="bengali" data-command="bash <(curl -sSL https://gist.github.com/y-nabeelxd/9fe4c42eac0cbd82e0df159b2b20d241/raw)">
+                <div class="flag-icon">🇧🇩</div>
+                Bengali (বাংলা)
+            </button>
+            <button class="language-btn" data-lang="spanish" data-command="bash <(curl -sSL https://gist.github.com/y-nabeelxd/686399b34c2eb74b34df2bbf7e3ec779/raw)">
+                <div class="flag-icon">🇪🇸</div>
+                Spanish (Español)
+            </button>
+            <button class="language-btn" data-lang="hindi" data-command="bash <(curl -sSL https://gist.github.com/y-nabeelxd/e452f7c68c996140999490144affd247/raw)">
+                <div class="flag-icon">🇮🇳</div>
+                Hindi (हिन्दी)
+            </button>
+            <button class="language-btn" data-lang="indonesian" data-command="bash <(curl -sSL https://gist.github.com/y-nabeelxd/fe3844a930200859a88006bb048b5460/raw)">
+                <div class="flag-icon">🇮🇩</div>
+                Indonesian (Bahasa Indonesia)
+            </button>
+            <button class="language-btn" data-lang="urdu" data-command="bash <(curl -sSL https://gist.github.com/y-nabeelxd/238edc143d9890995c50bc4bb4ed39a5/raw)">
+                <div class="flag-icon">🇵🇰</div>
+                Urdu (اردو)
+            </button>
+            <button class="language-btn" data-lang="turkish" data-command="bash <(curl -sSL https://gist.github.com/y-nabeelxd/84f0041c4f003c837b0f48581e82c0fe/raw)">
+                <div class="flag-icon">🇹🇷</div>
+                Turkish (Türkçe)
+            </button>
+            <button class="language-btn" data-lang="french" data-command="bash <(curl -sSL https://gist.github.com/y-nabeelxd/9265c90ab7a800bf8d0fccfbc7e360f7/raw)">
+                <div class="flag-icon">🇫🇷</div>
+                French (Français)
+            </button>
+            <button class="language-btn" data-lang="russian" data-command="bash <(curl -sSL https://gist.github.com/y-nabeelxd/d7e2e38e248859214a3c2d4ad7afb104/raw)">
+                <div class="flag-icon">🇷🇺</div>
+                Russian (Русский)
+            </button>
+        </div>
+        
+        <div id="commandDialog" class="dialog" style="display: none;">
             <h2 id="selectedLanguage"></h2>
             <p id="instructionText"></p>
             <div class="command-container">
                 <code class="command" id="commandText"></code>
-                <button class="copy-btn" id="copyBtn"></button>
+                <button class="copy-btn" id="copyBtn"><i class="fas fa-copy"></i> Copy</button>
             </div>
             <p class="copy-message" id="copyMessage"></p>
+            <button class="back-btn" id="backBtn"><i class="fas fa-arrow-left"></i> Back to Languages</button>
         </div>
     </div>
+
+    <button class="fixed-copy-btn" id="fixedCopyBtn"><i class="fas fa-copy"></i> Copy Command</button>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -148,59 +385,54 @@
             const selectedLanguage = document.getElementById('selectedLanguage');
             const commandText = document.getElementById('commandText');
             const copyBtn = document.getElementById('copyBtn');
+            const fixedCopyBtn = document.getElementById('fixedCopyBtn');
             const copyMessage = document.getElementById('copyMessage');
             const instructionText = document.getElementById('instructionText');
-            const container = document.querySelector('.container');
-            const title = document.querySelector('h1');
+            const backBtn = document.getElementById('backBtn');
+            const header = document.querySelector('.header');
             const languageGrid = document.querySelector('.language-grid');
+            const subtitle = document.querySelector('.subtitle');
             
             const translations = {
                 english: {
                     instruction: "Copy and run this command in Termux:",
-                    copyBtn: "Copy",
                     message: "Copy and paste this command to Termux. After installation you will see `root@localhost` in your screen. Then paste this command again."
                 },
                 bengali: {
                     instruction: "টার্মাক্সে এই কমান্ডটি কপি এবং রান করুন:",
-                    copyBtn: "কপি করুন",
                     message: "এই কমান্ডটি টার্মাক্সে কপি এবং পেস্ট করুন। ইনস্টলেশন শেষে আপনি আপনার স্ক্রিনে `root@localhost` দেখতে পাবেন। তারপর আবার এই কমান্ডটি পেস্ট করুন।"
                 },
                 spanish: {
                     instruction: "Copia y ejecuta este comando en Termux:",
-                    copyBtn: "Copiar",
                     message: "Copia y pega este comando en Termux. Después de la instalación verás `root@localhost` en tu pantalla. Luego pega este comando nuevamente."
                 },
                 hindi: {
                     instruction: "टर्मक्स में इस कमांड को कॉपी और रन करें:",
-                    copyBtn: "कॉपी करें",
                     message: "इस कमांड को टर्मक्स में कॉपी और पेस्ट करें। इंस्टालेशन के बाद आप अपनी स्क्रीन पर `root@localhost` देखेंगे। फिर इस कमांड को फिर से पेस्ट करें।"
                 },
                 indonesian: {
                     instruction: "Salin dan jalankan perintah ini di Termux:",
-                    copyBtn: "Salin",
                     message: "Salin dan tempel perintah ini ke Termux. Setelah instalasi Anda akan melihat `root@localhost` di layar Anda. Kemudian tempel perintah ini lagi."
                 },
                 urdu: {
                     instruction: "ٹریمکس میں یہ کمانڈ کاپی اور رن کریں:",
-                    copyBtn: "کاپی کریں",
                     message: "اس کمانڈ کو ٹریمکس میں کاپی اور پیسٹ کریں۔ انسٹالیشن کے بعد آپ اپنی اسکرین پر `root@localhost` دیکھیں گے۔ پھر یہ کمانڈ دوبارہ پیسٹ کریں۔"
                 },
                 turkish: {
                     instruction: "Termux'ta bu komutu kopyalayın ve çalıştırın:",
-                    copyBtn: "Kopyala",
                     message: "Bu komutu Termux'a kopyalayıp yapıştırın. Kurulumdan sonra ekranda `root@localhost` göreceksiniz. Ardından bu komutu tekrar yapıştırın."
                 },
                 french: {
                     instruction: "Copiez et exécutez cette commande dans Termux :",
-                    copyBtn: "Copier",
                     message: "Copiez et collez cette commande dans Termux. Après l'installation, vous verrez `root@localhost` à l'écran. Collez ensuite cette commande à nouveau."
                 },
                 russian: {
                     instruction: "Скопируйте и выполните эту команду в Termux:",
-                    copyBtn: "Копировать",
                     message: "Скопируйте и вставьте эту команду в Termux. После установки вы увидите `root@localhost` на экране. Затем снова вставьте эту команду."
                 }
             };
+            
+            let currentCommand = '';
             
             languageBtns.forEach(btn => {
                 btn.addEventListener('click', function() {
@@ -208,22 +440,34 @@
                     const command = this.getAttribute('data-command');
                     const langName = this.textContent;
                     
-                    title.style.display = 'none';
+                    header.style.display = 'none';
                     languageGrid.style.display = 'none';
+                    subtitle.style.display = 'none';
                     
                     selectedLanguage.textContent = langName;
                     instructionText.textContent = translations[lang].instruction;
                     commandText.textContent = command;
-                    copyBtn.textContent = translations[lang].copyBtn;
                     copyMessage.textContent = translations[lang].message;
                     commandDialog.style.display = 'block';
+                    fixedCopyBtn.style.display = 'flex';
+                    
+                    currentCommand = command;
+                    
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
                 });
             });
             
-            copyBtn.addEventListener('click', function() {
-                const command = commandText.textContent;
-                
-                navigator.clipboard.writeText(command).then(() => {
+            backBtn.addEventListener('click', function() {
+                commandDialog.style.display = 'none';
+                fixedCopyBtn.style.display = 'none';
+                header.style.display = 'block';
+                languageGrid.style.display = 'grid';
+                subtitle.style.display = 'block';
+                copyMessage.style.display = 'none';
+            });
+            
+            function copyCommand() {
+                navigator.clipboard.writeText(currentCommand).then(() => {
                     copyMessage.style.display = 'block';
                     
                     setTimeout(() => {
@@ -231,8 +475,22 @@
                     }, 5000);
                 }).catch(err => {
                     console.error('Failed to copy: ', err);
+                    const textArea = document.createElement('textarea');
+                    textArea.value = currentCommand;
+                    document.body.appendChild(textArea);
+                    textArea.select();
+                    document.execCommand('copy');
+                    document.body.removeChild(textArea);
+                    
+                    copyMessage.style.display = 'block';
+                    setTimeout(() => {
+                        copyMessage.style.display = 'none';
+                    }, 5000);
                 });
-            });
+            }
+            
+            copyBtn.addEventListener('click', copyCommand);
+            fixedCopyBtn.addEventListener('click', copyCommand);
         });
     </script>
 </body>
