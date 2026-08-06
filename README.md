@@ -9,9 +9,6 @@ This repository provides a one-command installer for setting up the [Levanter](h
 
 ## Installation Options
 
-### Web Interface (Easy Install)
-[![Web Installer](https://img.shields.io/badge/🌐%20WEB%20INSTALLER-CLICK%20HERE-blue?style=for-the-badge)](https://y-nabeelxd.github.io/levanter-installer)
-
 ### Command Line Installation
 Necessary Installation:
 ```
@@ -52,7 +49,6 @@ npm start
 
 - [Levanter Bot](https://github.com/lyfe00011/levanter) by [lyfe00011](https://github.com/lyfe00011)
 - Installer by [y-nabeelxd](https://github.com/y-nabeelxd)
-- Web Interface by [y-nabeelxd](https://github.com/y-nabeelxd)
 
 ---
 
