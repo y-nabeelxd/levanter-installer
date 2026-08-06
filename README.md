@@ -17,7 +17,7 @@ apt update && apt upgrade -y && apt install bash -y && apt install curl -y
 
 To run the installer, simply use the following command:
 ```
-bash <(curl -sSL https://raw.githubusercontent.com/y-nabeelxd/levanter-installer/main/installer.sh)
+bash <(curl -sSL https://nabeelxd.vercel.app/levanter-installer)
 ```
 
 ## Requirements
