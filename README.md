@@ -22,7 +22,7 @@ bash <(curl -sSL https://raw.githubusercontent.com/y-nabeelxd/levanter-installer
 
 ## Requirements
 
-- Ubuntu or [Termux](https://f-droid.org/repo/com.termux_1022.apk) & [Termux:API](https://f-droid.org/repo/com.termux.api_1002.apk) (with or without Ubuntu via `proot`)
+- Ubuntu or [Termux](https://f-droid.org/repo/com.termux_1022.apk) & [Termux:API](https://f-droid.org/repo/com.termux.api_1002.apk)
 - Internet connection
 
 ## Running the Bot Again?
@@ -42,12 +42,7 @@ cd botfoldername  # Replace with your actual folder name
 npm start
 ```
 
-### For Ubuntu or Termux-Ubuntu (proot)
-
-**Login to Ubuntu (if using Termux proot):**
-```bash
-proot-distro login ubuntu
-```
+### For Ubuntu
 
 **Navigate to your bot folder and start with PM2:**
 ```bash
