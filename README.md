@@ -17,7 +17,7 @@ apt update && apt upgrade -y && apt install bash -y && apt install curl -y
 
 To run the installer, simply use the following command:
 ```
-bash <(curl -sSL https://gist.github.com/y-nabeelxd/6b30a1ef0a0ac26e7f7001036b1186da/raw)
+bash <(curl -sSL https://raw.githubusercontent.com/y-nabeelxd/levanter-installer/main/installer.sh)
 ```
 
 ## Requirements
@@ -27,22 +27,32 @@ bash <(curl -sSL https://gist.github.com/y-nabeelxd/6b30a1ef0a0ac26e7f7001036b11
 
 ## Running the Bot Again?
 
-If you're having trouble running the bot again, follow these steps:
+If you're having trouble running the bot again or need to restart it, follow the steps for your setup:
 
-**Login to Ubuntu from Termux:**
-```
-proot-distro login ubuntu
-```
+### For Native Termux
 
 **Navigate to your bot folder:**
-```
+```bash
 ls                # Check if your bot folder is listed
 cd botfoldername  # Replace with your actual folder name
 ```
 
 **Run the bot:**
-```
+```bash
 npm start
+```
+
+### For Ubuntu or Termux-Ubuntu (proot)
+
+**Login to Ubuntu (if using Termux proot):**
+```bash
+proot-distro login ubuntu
+```
+
+**Navigate to your bot folder and start with PM2:**
+```bash
+cd botfoldername
+pm2 start . --name botfoldername
 ```
 
 ## Credits
